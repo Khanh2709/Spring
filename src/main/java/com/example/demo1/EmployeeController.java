@@ -14,6 +14,8 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     EmployeeService empService;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
 
     @GetMapping("/{id}")
@@ -41,7 +43,7 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEntity<Employee> addEmployee(@RequestBody Employee emp) throws NotFoundException {
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee emp) {
         Employee employee = empService.addEmployee(emp);
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }

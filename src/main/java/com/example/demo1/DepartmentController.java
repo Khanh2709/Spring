@@ -58,4 +58,12 @@ public class DepartmentController {
         }
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
+//    @GetMapping
+//    public ResponseEntity<List<Department>> findEmployeeByDepartmentId(@PathVariable int depId,@RequestBody Department dep) throws NotFoundException {
+//        List<Department> departments = departmentService.findEmployeeByDepartmentId(depId,dep);
+//        if (departments.isEmpty()) {
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//        return new ResponseEntity<>(departments, HttpStatus.OK);
+//    }
 }

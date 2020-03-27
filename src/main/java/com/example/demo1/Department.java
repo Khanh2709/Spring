@@ -1,10 +1,11 @@
 package com.example.demo1;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -17,9 +18,10 @@ public class Department  {
 
     @Column(name = "dep_name")
     private String depName;
-
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private List<Employee> employees;
+//    @JsonIgnore
+    @OneToMany( mappedBy = "department",cascade= CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonIgnoreProperties(value = "department")
+    private List<Employee> listEmployee ;
 
     public int getDepId() {
         return depId;
@@ -42,14 +44,17 @@ public class Department  {
     public Department(String depName) {
         this.depName = depName;
     }
+    public List<Employee> getListEmployee() {
+        return listEmployee;
+    }
 
+    public void setListEmployee(List<Employee> listEmployee) {
+        this.listEmployee = listEmployee;
+    }
 
     @Override
         public String toString() {
             return "Id= " + getDepId() + " DepName= " +
                     getDepName();
     }
-
-
-
 }

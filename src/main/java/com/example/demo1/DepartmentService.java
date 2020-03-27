@@ -1,13 +1,11 @@
 package com.example.demo1;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,4 +64,14 @@ public class DepartmentService {
             throw new NotFoundException("Không Tìm Thấy Department id :" + depName);
         }
     }
+
+//    public List<Department> findEmployeeByDepartmentId(int depId, @RequestBody Department department) throws NotFoundException {
+//       List<Department> dep = departmentRepository.findEmployeeByDepartmentId(depId );
+//        System.out.println(department.getEmployees());
+//        if (dep.isEmpty()) {
+//            return dep;
+//        } else {
+//            throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
+//        }
+//    }
 }

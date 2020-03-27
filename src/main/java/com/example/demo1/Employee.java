@@ -1,12 +1,20 @@
 package com.example.demo1;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Data
 @Table(name="employee")
 public class Employee  {
     @Id
@@ -18,8 +26,6 @@ public class Employee  {
     private String lastName;
     @Column(name="salary")
     private int salary_emp;
-    @Column(name = "department_id")
-    private int dept;
 
 
     public int getId() {
@@ -62,18 +68,19 @@ public class Employee  {
     public Employee(String firstName, String lastName, int dept, int salary_emp) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dept = dept;
         this.salary_emp=salary_emp;
+
     }
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
     private Department department;
+
     @Override
     public String toString() {
         return "Id= " + getId() + " First Name= " +
-                getFirstName() + " Last Name= " + getLastName() +"Salary"+ getSalary_emp()
-                + " Dept= " + getDept();
+                getFirstName() + " Last Name= " + getLastName() +"Salary"+ getSalary_emp();
 }
+
     public Department getDepartment() {
         return department;
     }
@@ -83,11 +90,4 @@ public class Employee  {
     }
 
 
-    public int getDept() {
-        return dept;
-    }
-
-    public void setDept(int dept) {
-        this.dept = dept;
-    }
 }
