@@ -3,6 +3,7 @@ package com.example.demo1;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,9 +19,8 @@ public class Department  {
 
     @Column(name = "dep_name")
     private String depName;
-//    @JsonIgnore
-    @OneToMany( mappedBy = "department",cascade= CascadeType.ALL,fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = "department")
+    @OneToMany( mappedBy = "department",fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Employee> listEmployee ;
 
     public int getDepId() {

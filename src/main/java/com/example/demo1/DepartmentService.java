@@ -25,7 +25,6 @@ public class DepartmentService {
 
     public List<Department> findAllDepartment() {
         List<Department> dep = departmentRepository.findAll();
-
         if (dep.size() > 0) {
             return dep;
         } else {

@@ -73,6 +73,7 @@ public class Employee  {
     }
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
+    @JsonBackReference
     private Department department;
 
     @Override
