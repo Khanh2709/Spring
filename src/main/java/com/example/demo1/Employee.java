@@ -73,7 +73,7 @@ public class Employee  {
     }
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
-    @JsonBackReference
+    @JsonIgnoreProperties(value = {"employee","listEmployee"},ignoreUnknown = true)
     private Department department;
 
     @Override

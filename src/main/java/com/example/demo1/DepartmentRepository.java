@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
     List<Department> findByDepName(String depName);
-//    List<Department> findEmployeeByDepartmentId(int depId);
+    List<Department> findEmployeeByDepId(int depId);
 
 }

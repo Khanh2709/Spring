@@ -1,10 +1,12 @@
 package com.example.demo1;
 
 import javassist.NotFoundException;
+import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -40,8 +42,8 @@ public class DepartmentService {
             throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
         }
     }
+
     public Department addDepartment(Department dep) {
-        Optional<Department> department = departmentRepository.findById(dep.getDepId());
         return departmentRepository.save(dep);
     }
     public void updateDepartment(int depId, Department dep) throws NotFoundException {
@@ -64,13 +66,12 @@ public class DepartmentService {
         }
     }
 
-//    public List<Department> findEmployeeByDepartmentId(int depId, @RequestBody Department department) throws NotFoundException {
-//       List<Department> dep = departmentRepository.findEmployeeByDepartmentId(depId );
-//        System.out.println(department.getEmployees());
-//        if (dep.isEmpty()) {
-//            return dep;
-//        } else {
-//            throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
-//        }
-//    }
+    public Department findEmployeeByDepartmentId(int depId) throws NotFoundException {
+        Optional<Department> dep = departmentRepository.findById(depId);
+        if (dep.isPresent()) {
+            return dep.get();
+        } else {
+            throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
+        }
+    }
 }

@@ -47,23 +47,21 @@ public class DepartmentController {
 //    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Department> addDepartment(@RequestBody Department dep) {
         departmentService.addDepartment(dep);
-        return new ResponseEntity<>(dep,HttpStatus.OK);
+        return new ResponseEntity<>(dep, HttpStatus.OK);
     }
 
     @GetMapping("/depname/{depName}")
-    public ResponseEntity<List<Department>> findDepartmentByName(@PathVariable String depName)throws NotFoundException  {
+    public ResponseEntity<List<Department>> findDepartmentByName(@PathVariable String depName) throws NotFoundException {
         List<Department> dep = departmentService.findDepartmentByName(depName);
         if (dep.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
-//    @GetMapping
-//    public ResponseEntity<List<Department>> findEmployeeByDepartmentId(@PathVariable int depId,@RequestBody Department dep) throws NotFoundException {
-//        List<Department> departments = departmentService.findEmployeeByDepartmentId(depId,dep);
-//        if (departments.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//        return new ResponseEntity<>(departments, HttpStatus.OK);
-//    }
+
+    @GetMapping("/departments/{depId}")
+    public ResponseEntity<Department> findEmployeeByDEPID(@PathVariable int depId) throws NotFoundException {
+        Department dep = departmentService.findEmployeeByDepartmentId(depId);
+        return new ResponseEntity<>(dep, HttpStatus.OK);
+    }
 }

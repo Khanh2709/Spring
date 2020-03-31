@@ -19,9 +19,9 @@ public class Department  {
 
     @Column(name = "dep_name")
     private String depName;
-    @OneToMany( mappedBy = "department",fetch = FetchType.LAZY)
-    @JsonManagedReference
-    private List<Employee> listEmployee ;
+    @OneToMany( mappedBy = "department",cascade=CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"department"})
+    public List<Employee> listEmployee ;
 
     public int getDepId() {
         return depId;
