@@ -1,12 +1,10 @@
 package com.example.demo1;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,8 +18,9 @@ public class Department  {
     @Column(name = "dep_name")
     private String depName;
     @OneToMany( mappedBy = "department",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JsonManagedReference
+    @JsonIgnoreProperties(value = {"department"})
     public List<Employee> listEmployee ;
+
 
     public int getDepId() {
         return depId;

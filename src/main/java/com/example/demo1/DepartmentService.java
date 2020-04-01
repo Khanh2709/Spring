@@ -44,6 +44,7 @@ public class DepartmentService {
     }
 
     public Department addDepartment(Department dep) {
+        dep.getListEmployee();
         return departmentRepository.save(dep);
     }
     public void updateDepartment(int depId, Department dep) throws NotFoundException {
