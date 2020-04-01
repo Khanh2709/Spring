@@ -8,19 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="department")
-public class Department  {
+@Table(name = "department")
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="dep_id")
+    @Column(name = "dep_id")
     private int depId;
 
     @Column(name = "dep_name")
     private String depName;
-    @OneToMany( mappedBy = "department",fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JsonIgnoreProperties(value = {"department"})
-    public List<Employee> listEmployee ;
 
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = "department")
+    public List<Employee> listEmployee;
 
     public int getDepId() {
         return depId;
@@ -37,23 +37,32 @@ public class Department  {
     public void setDepName(String depName) {
         this.depName = depName;
     }
+
     public Department() {
 
     }
+
     public Department(String depName) {
         this.depName = depName;
     }
+
     public List<Employee> getListEmployee() {
         return listEmployee;
     }
 
-    public void setListEmployee(List<Employee> listEmployee) {
+    public void setListEmployee(List<Employee> listEmployee)  {
         this.listEmployee = listEmployee;
+        for (Employee employee : this.listEmployee) {
+            if (employee.getDepartment() != null) {
+                continue;
+            }
+            employee.setDepartment(this);
+        }
     }
 
     @Override
-        public String toString() {
-            return "Id= " + getDepId() + " DepName= " +
-                    getDepName();
+    public String toString() {
+        return "Id= " + getDepId() + " DepName= " +
+                getDepName();
     }
 }

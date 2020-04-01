@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th3 26, 2020 lúc 07:47 AM
+-- Thời gian đã tạo: Th4 01, 2020 lúc 12:01 PM
 -- Phiên bản máy phục vụ: 10.1.38-MariaDB
 -- Phiên bản PHP: 7.3.3
 
@@ -38,13 +38,25 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`dep_id`, `dep_name`) VALUES
-(1, 'Ke Hoach'),
-(7, 'Ke Toan'),
-(12, 'IT'),
-(14, 'Quan Li'),
-(27, 'HR'),
-(32, 'Hanh chinh'),
-(33, 'Nhan Su');
+(2, 'Tham dinh'),
+(4, 'Maketing'),
+(5, 'CEO'),
+(6, 'Kho lanh'),
+(7, 'Ho Tro'),
+(8, 'Dau Tu'),
+(28, 'Ho tro'),
+(29, 'Kinh Doanh'),
+(101, 'Ho Tro moi'),
+(151, 'Kinh Doanh 1'),
+(152, 'Kinh Doanh 1'),
+(153, 'Kinh Doanh 1'),
+(158, 'Kinh Doanh 1'),
+(159, 'Kinh Doanh 1'),
+(160, 'Kinh Doanh 1'),
+(169, 'Kinh Doanh 2'),
+(190, 'Doanh 3'),
+(191, 'Doanh 3'),
+(192, 'Xuat Nhap Khau');
 
 -- --------------------------------------------------------
 
@@ -56,23 +68,36 @@ CREATE TABLE `employee` (
   `id` int(11) NOT NULL,
   `first_name` varchar(22) DEFAULT NULL,
   `last_name` varchar(22) DEFAULT NULL,
-  `salary` varchar(22) DEFAULT NULL,
-  `department_id` int(11) NOT NULL
+  `salary` int(11) DEFAULT NULL,
+  `dep_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Đang đổ dữ liệu cho bảng `employee`
 --
 
-INSERT INTO `employee` (`id`, `first_name`, `last_name`, `salary`, `department_id`) VALUES
-(3, 'Minh', 'Tu', '147100', 1),
-(5, 'Truc', 'Nhan', '9999', 1),
-(12, 'Hung', 'Duc', '111', 7),
-(13, 'Tri', 'Duc', '99655', 7),
-(20, 'Thuc', 'Minh', '30', 7),
-(21, 'My', 'Truc', '78441', 1),
-(37, 'Hong', 'Hanh', '1920', 32),
-(38, 'Huynh', 'Thanh', '33333', 32);
+INSERT INTO `employee` (`id`, `first_name`, `last_name`, `salary`, `dep_id`) VALUES
+(8, 'Tran', 'Huyen', 888, 2),
+(9, 'Ngoc', 'Huyen', 9999, 2),
+(10, 'Hung', 'Dung', 12589, 4),
+(11, 'Thanh', 'Huyen', 19599, 2),
+(13, 'Trung', 'Thanh', 458, 2),
+(14, 'Hoang', 'Tu', 1458111, 4),
+(16, 'Hung', 'Dung', 12589, 4),
+(17, 'ffff', 'Huyen', 888, 28),
+(18, 'Ho', 'Huyen', 111, 29),
+(19, 'Ngoc', 'Huyen', 9999, 2),
+(22, 'Ho', 'Huyen', 111, 151),
+(23, 'Ho', 'mi', 111, 151),
+(24, 'Ho', 'Huyen', 111, 152),
+(25, 'Ho', 'mi', 111, 152),
+(26, 'Ho', 'Huyen', 111, 158),
+(27, 'Ho', 'mi', 111, 158),
+(28, 'Ho', 'Huyen', 111, 159),
+(29, 'Ho', 'Huyen', 111, 160),
+(30, 'Duc', 'Minh', 7889, 190),
+(31, 'Duc', 'Minh', 7889, 191),
+(32, 'Thuy', 'Nhung', 39744, 192);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -89,7 +114,7 @@ ALTER TABLE `department`
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fc_ss` (`department_id`);
+  ADD KEY `fc_ss` (`dep_id`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -99,13 +124,13 @@ ALTER TABLE `employee`
 -- AUTO_INCREMENT cho bảng `department`
 --
 ALTER TABLE `department`
-  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
 
 --
 -- AUTO_INCREMENT cho bảng `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -115,7 +140,7 @@ ALTER TABLE `employee`
 -- Các ràng buộc cho bảng `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `fc_ss` FOREIGN KEY (`department_id`) REFERENCES `department` (`dep_id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `fc_ss` FOREIGN KEY (`dep_id`) REFERENCES `department` (`dep_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

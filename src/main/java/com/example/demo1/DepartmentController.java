@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -13,6 +14,8 @@ import java.util.List;
 public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
+    @Autowired
+    EmployeeService employeeService;
 
     @GetMapping("/{depId}")
     public ResponseEntity<Department> findDepartmentById(@PathVariable int depId) throws NotFoundException {
@@ -44,9 +47,8 @@ public class DepartmentController {
     }
 
     @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Department> addDepartment(@RequestBody Department dep) {
-        departmentService.addDepartment(dep);
+        dep = departmentService.addDepartment(dep);
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
 

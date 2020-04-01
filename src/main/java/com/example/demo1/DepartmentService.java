@@ -4,6 +4,8 @@ import javassist.NotFoundException;
 import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.EntityManager;
@@ -15,6 +17,8 @@ import java.util.Optional;
 public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     public Department findDepartmentById(int depId) throws NotFoundException {
         Optional<Department> dep = departmentRepository.findById(depId);
@@ -43,9 +47,16 @@ public class DepartmentService {
         }
     }
 
+    @Transactional
     public Department addDepartment(Department dep) {
-        dep.getListEmployee();
-        return departmentRepository.save(dep);
+        Department insertedDep = departmentRepository.save(dep);
+        if (dep.getListEmployee() != null) {
+            for (Employee employee : dep.getListEmployee()) {
+                employee.setDepartment(insertedDep);
+                employeeRepository.save(employee);
+            }
+        }
+        return departmentRepository.findById(dep.getDepId()).get();
     }
     public void updateDepartment(int depId, Department dep) throws NotFoundException {
         Optional<Department> department = departmentRepository.findById(depId);

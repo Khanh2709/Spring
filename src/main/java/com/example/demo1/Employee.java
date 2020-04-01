@@ -5,20 +5,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
 
 @Entity
 @Table(name="employee")
 public class Employee  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private int id;
     @Column(name = "first_name")
     private String firstName;
@@ -64,19 +59,9 @@ public class Employee  {
     public Employee() {
 
     }
-
-    public Employee(String firstName, String lastName, int dept, int salary_emp) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.salary_emp=salary_emp;
-
-    }
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
-    @JsonIgnoreProperties(value = {"Employee","listEmployee"})
+    @JoinColumn(name ="dep_id")
     private Department department;
-
-
 
     @Override
     public String toString() {
@@ -90,7 +75,7 @@ public class Employee  {
 
     public void setDepartment(Department department) {
         this.department = department;
-    }
+}
 
 
 }
