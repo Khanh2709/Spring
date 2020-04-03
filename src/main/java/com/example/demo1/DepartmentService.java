@@ -4,11 +4,9 @@ import javassist.NotFoundException;
 import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.persistence.EntityManager;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +56,7 @@ public class DepartmentService {
         }
         return departmentRepository.findById(dep.getDepId()).get();
     }
+
     public void updateDepartment(int depId, Department dep) throws NotFoundException {
         Optional<Department> department = departmentRepository.findById(depId);
         dep.setDepId(depId);
@@ -86,12 +85,6 @@ public class DepartmentService {
             throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
         }
     }
-    public List<Department> findEmployeeByDepartmentName (String depName) throws NotFoundException {
-        List<Department> dep = departmentRepository.findByDepName(depName);
-        if (dep.size() > 0) {
-            return dep;
-        } else {
-            throw new NotFoundException("Không Tìm Thấy Department Name :" + depName);
-        }
-    }
+
+
 }

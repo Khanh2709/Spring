@@ -5,6 +5,7 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class EmployeeController {
     @Autowired
     EmployeeService empService;
     @Autowired
-    private EmployeeRepository employeeRepository;
+    DepartmentService departmentService;
 
 
     @GetMapping("/{id}")
@@ -23,6 +24,7 @@ public class EmployeeController {
         Employee emp = empService.findEmployeeById(id);
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
+
     @GetMapping
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = empService.getAllEmployees();
@@ -49,11 +51,20 @@ public class EmployeeController {
     }
 
     @GetMapping("/lastname/{lastName}")
-    public ResponseEntity<List<Employee>> findEmployeeByName(@PathVariable String lastName)throws NotFoundException  {
+    public ResponseEntity<List<Employee>> findEmployeeByName(@PathVariable String lastName) throws NotFoundException {
         List<Employee> emp = empService.findEmployeeByName(lastName);
         if (emp.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
+    @GetMapping("/dep/{depName}")
+    public ResponseEntity<List<Employee>> findEmployeeByDepName(@PathVariable String depName, Department department) throws NotFoundException {
+        List<Employee> emp = empService.findEmployeeByDepName(depName,department);
+        if (emp.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(emp, HttpStatus.OK);
+    }
+
 }

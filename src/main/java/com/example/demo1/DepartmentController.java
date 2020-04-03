@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -66,12 +65,5 @@ public class DepartmentController {
         Department dep = departmentService.findEmployeeByDepartmentId(depId);
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
-    @GetMapping("/dep/{depName}")
-    public ResponseEntity<List<Department>> findEmployeeByDEPName(@PathVariable String depName) throws NotFoundException {
-        List<Department> dep = departmentService.findEmployeeByDepartmentName(depName);
-        if (dep.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(dep, HttpStatus.OK);
-    }
+
 }

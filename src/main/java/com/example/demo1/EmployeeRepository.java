@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findByLastName(String lastName);
+    List<Employee> findEmployeeBydepName(String depName,Department department);
 }
