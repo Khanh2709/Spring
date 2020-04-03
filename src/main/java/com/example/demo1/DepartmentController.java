@@ -62,8 +62,16 @@ public class DepartmentController {
     }
 
     @GetMapping("/departments/{depId}")
-    public ResponseEntity<Department> findEmployeeByDEPID(@PathVariable int depId) throws NotFoundException {
+    public ResponseEntity<Department> findEmployeeByDEPId(@PathVariable int depId) throws NotFoundException {
         Department dep = departmentService.findEmployeeByDepartmentId(depId);
+        return new ResponseEntity<>(dep, HttpStatus.OK);
+    }
+    @GetMapping("/dep/{depName}")
+    public ResponseEntity<List<Department>> findEmployeeByDEPName(@PathVariable String depName) throws NotFoundException {
+        List<Department> dep = departmentService.findEmployeeByDepartmentName(depName);
+        if (dep.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
 }

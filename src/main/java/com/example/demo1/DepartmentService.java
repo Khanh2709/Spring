@@ -86,4 +86,12 @@ public class DepartmentService {
             throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
         }
     }
+    public List<Department> findEmployeeByDepartmentName (String depName) throws NotFoundException {
+        List<Department> dep = departmentRepository.findByDepName(depName);
+        if (dep.size() > 0) {
+            return dep;
+        } else {
+            throw new NotFoundException("Không Tìm Thấy Department Name :" + depName);
+        }
+    }
 }
