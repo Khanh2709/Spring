@@ -65,5 +65,10 @@ public class DepartmentController {
         Department dep = departmentService.findEmployeeByDepartmentId(depId);
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
+    @GetMapping("/dep/{depName}")
+    public ResponseEntity<Department> findEmployeeByDEPName(@PathVariable String depName) throws NotFoundException {
+        Department dep = departmentService.findEmployeeByDepartmentName(depName);
+        return new ResponseEntity<>(dep, HttpStatus.OK);
+    }
 
 }

@@ -58,13 +58,5 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
-    @GetMapping("/dep/{depName}")
-    public ResponseEntity<List<Employee>> findEmployeeByDepName(@PathVariable String depName, Department department) throws NotFoundException {
-        List<Employee> emp = empService.findEmployeeByDepName(depName,department);
-        if (emp.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(emp, HttpStatus.OK);
-    }
 
 }

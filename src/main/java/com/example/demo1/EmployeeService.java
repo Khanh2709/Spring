@@ -60,14 +60,6 @@ public class EmployeeService {
         }
     }
 
-    public List<Employee> findEmployeeByDepName(String depName, Department department) throws NotFoundException {
-        List<Department> dep = departmentRepository.findByDepName(depName);
-        if (dep != null) {
-            List<Employee> listEmployee = department.getListEmployee();
-            return listEmployee;
-        } else {
-            throw new NotFoundException("Không Tìm Thấy Employee lastname :" + depName);
-        }
-    }
+
 }
 
