@@ -18,8 +18,8 @@ public class Department {
     @Column(name = "dep_name")
     private String depName;
 
+    @JsonIgnoreProperties(value = "department",ignoreUnknown = true)
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnoreProperties(value = "department")
     public List<Employee> listEmployee;
 
     public int getDepId() {
@@ -40,10 +40,6 @@ public class Department {
 
     public Department() {
 
-    }
-
-    public Department(String depName) {
-        this.depName = depName;
     }
 
     public List<Employee> getListEmployee() {
