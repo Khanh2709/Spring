@@ -1,6 +1,7 @@
 package com.example.demo1;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/department")
@@ -67,10 +69,10 @@ public class DepartmentController {
         Department dep = departmentService.findEmployeeByDepartmentId(depId);
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
+
     @GetMapping("/dep/{depName}")
-    public ResponseEntity<Department> findEmployeeByDEPName(@PathVariable String depName) throws NotFoundException {
-        Department dep = departmentService.findEmployeeByDepartmentName(depName);
+    public ResponseEntity<List<Employee>> findEmployeeByDepName(@PathVariable String depName) throws NotFoundException {
+        List<Employee> dep =  departmentService.findEmployeeByDepartmentName(depName);
         return new ResponseEntity<>(dep, HttpStatus.OK);
     }
-
 }

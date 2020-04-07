@@ -1,16 +1,11 @@
 package com.example.demo1;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javassist.NotFoundException;
-import org.hibernate.collection.internal.PersistentBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.Null;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,14 +83,12 @@ public class DepartmentService {
             throw new NotFoundException("Không Tìm Thấy Department id :" + depId);
         }
     }
-    public Department findEmployeeByDepartmentName(String depName) throws NotFoundException {
-        Optional<Department> dep = departmentRepository.findEmployeeBydepName(depName);
-        if (dep.isPresent()) {
-            dep.get().getDepName();
-            dep.get().getListEmployee();
-            return dep.get();
+    public List<Employee> findEmployeeByDepartmentName(String depName) throws NotFoundException {
+        List<Employee> dep = departmentRepository.findEmployeeBydepName(depName);
+        if (dep!=null) {
+            return dep;
         } else {
-            throw new NotFoundException("Không Tìm Thấy Department id :" + depName);
+            throw new NotFoundException("Không Tìm Thấy :" + depName);
         }
     }
 

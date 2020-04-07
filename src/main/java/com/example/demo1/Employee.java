@@ -61,7 +61,6 @@ public class Employee  {
     }
     @ManyToOne
     @JoinColumn(name ="dep_id")
-    @JsonIgnoreProperties(value = "employee")
     private Department department;
 
     @Override
